@@ -4,6 +4,9 @@ on:
     branches: [master]
   workflow_dispatch:
 
+env:
+  TRAEFIK_HOST: ${{ secrets.TRAEFIK_HOST }}
+
 jobs:
   push-notify:
     runs-on: ubuntu-latest
