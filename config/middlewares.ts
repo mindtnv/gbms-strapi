@@ -1,7 +1,16 @@
 export default [
   'strapi::errors',
   'strapi::security',
-  'strapi::cors',
+  {
+    name: 'strapi::cors',
+    config: {
+      enabled: true,
+      headers: '*',
+      origin: [
+        process.env["TRAEFIK_HOST"] ?? "http://localhost:3000",
+      ]
+    }
+  },
   'strapi::poweredBy',
   'strapi::logger',
   'strapi::query',

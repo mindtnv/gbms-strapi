@@ -1,5 +1,3 @@
-console.log("Configuring server...")
-
 export default ({env}) => ({
   host: process.env["NODE_ENV"] === "production" ? "0.0.0.0" : "localhost",
   port: env.int('STRAPI_PORT', 1337),
