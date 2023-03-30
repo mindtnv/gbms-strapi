@@ -2,6 +2,7 @@ services:
   gbms-strapi:
     build: .
     image: gbms-strapi:latest
+    env_file: .env
 
   gbms-strapi-postgres:
     image: postgres:14.5-alpine

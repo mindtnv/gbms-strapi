@@ -2,7 +2,6 @@
 services:
   gbms-strapi:
     image: gbms-strapi:latest
-    env_file: .env
     environment:
       HOST: 0.0.0.0
       DATABASE_CLIENT: ${DATABASE_CLIENT}
