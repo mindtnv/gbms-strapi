@@ -54,6 +54,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
+          file: {context/Dockerfile.prod}
           push: true
           tags: ${{ secrets.REGISTRY }}/${{ secrets.IMAGE }}:latest
 
