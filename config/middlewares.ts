@@ -7,7 +7,7 @@ export default [
       enabled: true,
       headers: '*',
       origin: [
-        process.env["TRAEFIK_HOST"] ?? "http://localhost:3000",
+        process.env["TRAEFIK_HOST"] ?? "https://strapi.dev.gbms.site",
       ]
     }
   },
