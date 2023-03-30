@@ -14,6 +14,7 @@ services:
       JWT_SECRET: ${JWT_SECRET}
       ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      APP_KEYS: ${APP_KEYS}
       NODE_ENV: ${NODE_ENV}
     #    volumes:
     #      - ./config:/opt/app/config
