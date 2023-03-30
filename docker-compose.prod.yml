@@ -1,6 +1,9 @@
 ﻿version: '3'
 services:
   gbms-strapi:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
     image: "${REGISTRY}/${IMAGE}:latest"
     environment:
       DATABASE_CLIENT: ${DATABASE_CLIENT}
@@ -12,13 +15,13 @@ services:
       ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       NODE_ENV: ${NODE_ENV}
-#    volumes:
-#      - ./config:/opt/app/config
-#      - ./src:/opt/app/src
-#      - ./package.json:/opt/package.json
-#      - ./yarn.lock:/opt/yarn.lock
-#      - ./.env:/opt/app/.env
-#      - ./public/uploads:/opt/app/public/uploads
+    #    volumes:
+    #      - ./config:/opt/app/config
+    #      - ./src:/opt/app/src
+    #      - ./package.json:/opt/package.json
+    #      - ./yarn.lock:/opt/yarn.lock
+    #      - ./.env:/opt/app/.env
+    #      - ./public/uploads:/opt/app/public/uploads
     ports:
       - '1337:1337'
     networks:
