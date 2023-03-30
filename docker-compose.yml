@@ -1,0 +1,74 @@
+version: '3'
+services:
+  gbms-strapi:
+    build: .
+    image: gbms-strapi:latest
+    env_file: .env
+    environment:
+      HOST: 0.0.0.0
+      DATABASE_CLIENT: ${DATABASE_CLIENT}
+      DATABASE_HOST: gbms-strapiDB
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PORT: ${DATABASE_PORT}
+      JWT_SECRET: ${JWT_SECRET}
+      ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      NODE_ENV: ${NODE_ENV}
+    volumes:
+      - ./config:/opt/app/config
+      - ./src:/opt/app/src
+      - ./package.json:/opt/package.json
+      - ./yarn.lock:/opt/yarn.lock
+      - ./.env:/opt/app/.env
+      - ./public/uploads:/opt/app/public/uploads
+    ports:
+      - '1337:1337'
+    networks:
+      - gbms-strapi
+    depends_on:
+      - gbms-strapi-postgres
+    deploy:
+      restart_policy:
+        condition: on-failure
+      mode: replicated
+      replicas: 1
+      labels:
+        - traefik.enable=true
+        - traefik.docker.network=traefik-public
+        - traefik.http.routers.gbms-strapi.rule=Host(`${TRAEFIK_HOST?Variable not set}`)
+        - traefik.http.routers.gbms-strapi-http.entrypoints=http
+        - traefik.http.routers.gbms-strapi-http.service=gbms-strapi
+        - traefik.http.routers.gbms-strapi-http.rule=Host(`${TRAEFIK_HOST?Variable not set}`)
+        - traefik.http.routers.gbms-strapi-http.middlewares=https-redirect
+        - traefik.http.routers.gbms-strapi.entrypoints=https
+        - traefik.http.routers.gbms-strapi.tls=true
+        - traefik.http.routers.gbms-strapi.tls.certresolver=le
+        - traefik.http.services.gbms-strapi.loadbalancer.server.port=1337
+        - traefik.http.routers.gbms-strapi.service=gbms-strapi
+
+  gbms-strapi-postgres:
+    platform: linux/amd64 #for platform error on Apple M1 chips
+    restart: unless-stopped
+    env_file: .env
+    image: postgres:14.5-alpine
+    environment:
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    volumes:
+      - gbms-strapi-data:/var/lib/postgresql/data/ #using a volume
+      #- ./data:/var/lib/postgresql/data/ # if you want to use a bind folder
+    ports:
+      - '5432:5432'
+    networks:
+      - gbms-strapi
+
+volumes:
+  gbms-strapi-data:
+
+networks:
+  traefik-public:
+    external: true
+  gbms-strapi:
+    driver: overlay
