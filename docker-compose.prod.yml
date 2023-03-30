@@ -1,7 +1,7 @@
 ﻿version: '3'
 services:
   gbms-strapi:
-    image: ${REGISTRY}/gbms-strapi:latest
+    image: "${REGISTRY}/gbms-strapi:latest"
     environment:
       DATABASE_CLIENT: ${DATABASE_CLIENT}
       DATABASE_HOST: gbms-strapi-postgres

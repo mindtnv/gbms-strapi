@@ -13,6 +13,7 @@ env:
   JWT_SECRET: ${{ secrets.JWT_SECRET }}
   ADMIN_JWT_SECRET: ${{ secrets.ADMIN_JWT_SECRET }}
   DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+  REGISTRY: ${{ secrets.REGISTRY }}
 
 jobs:
   push-notify:
