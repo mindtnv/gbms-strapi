@@ -18,18 +18,11 @@ services:
       NODE_ENV: production
       API_TOKEN_SALT: ${API_TOKEN_SALT}
       TRANSFER_TOKEN_SALT: ${TRANSFER_TOKEN_SALT}
-
-    #    volumes:
-    #      - ./config:/opt/app/config
-    #      - ./src:/opt/app/src
-    #      - ./package.json:/opt/package.json
-    #      - ./yarn.lock:/opt/yarn.lock
-    #      - ./.env:/opt/app/.env
-    #      - ./public/uploads:/opt/app/public/uploads
     ports:
       - '1337:1337'
     networks:
       - gbms-strapi
+      - traefik-public
     deploy:
       restart_policy:
         condition: on-failure
