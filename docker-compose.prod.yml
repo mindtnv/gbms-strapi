@@ -16,6 +16,9 @@ services:
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       APP_KEYS: ${APP_KEYS}
       NODE_ENV: ${NODE_ENV}
+      API_TOKEN_SALT: ${API_TOKEN_SALT}
+      TRANSFER_TOKEN_SALT: ${TRANSFER_TOKEN_SALT}
+
     #    volumes:
     #      - ./config:/opt/app/config
     #      - ./src:/opt/app/src

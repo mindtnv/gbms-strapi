@@ -16,6 +16,8 @@ env:
   APP_KEYS: ${{ secrets.APP_KEYS }}
   REGISTRY: ${{ secrets.REGISTRY }}
   IMAGE: ${{ secrets.IMAGE }}
+  API_TOKEN_SALT: ${{ secrets.API_TOKEN_SALT }}
+  TRANSFER_TOKEN_SALT: ${{ secrets.TRANSFER_TOKEN_SALT }}
 
 jobs:
   push-notify:
