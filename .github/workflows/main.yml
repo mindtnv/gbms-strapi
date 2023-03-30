@@ -1,11 +1,18 @@
 name: CD
 on:
   push:
-    branches: [master]
+    branches: [ master ]
   workflow_dispatch:
 
 env:
   TRAEFIK_HOST: ${{ secrets.TRAEFIK_HOST }}
+  DATABASE_CLIENT: ${{ secrets.DATABASE_CLIENT }}
+  DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
+  DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
+  DATABASE_PORT: ${{ secrets.DATABASE_PORT }}
+  JWT_SECRET: ${{ secrets.JWT_SECRET }}
+  ADMIN_JWT_SECRET: ${{ secrets.ADMIN_JWT_SECRET }}
+  DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
 
 jobs:
   push-notify:
@@ -79,7 +86,7 @@ jobs:
           remote_host: ssh://${{ secrets.DOCKER_HOST }}
           ssh_private_key: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
           ssh_public_key: ${{ secrets.DOCKER_SSH_PUBLIC_KEY }}
-          args: stack deploy --with-registry-auth --prune -c docker-compose.yml ${{ secrets.IMAGE }}
+          args: stack deploy --with-registry-auth --prune -c docker-compose.prod.yml ${{ secrets.IMAGE }}
 
   deploy-notify:
     runs-on: ubuntu-latest
